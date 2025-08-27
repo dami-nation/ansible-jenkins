@@ -1,0 +1,26 @@
+---
+- name: Install Apache (Debian/Ubuntu)
+  apt:
+    name: apache2
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install Apache (RHEL-like)
+  yum:
+    name: httpd
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure Apache running
+  service:
+    name: "{{ 'apache2' if ansible_os_family == 'Debian' else 'httpd' }}"
+    state: started
+    enabled: true
+
+- name: Simple index
+  copy:
+    dest: /var/www/html/index.apache-deployed.html
+    content: "OK from apache\n"
+  notify: Restart apache
+

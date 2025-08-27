@@ -1,0 +1,22 @@
+---
+- name: Configure web tier
+  hosts: nginx:apache
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+- name: Nginx host config
+  hosts: nginx
+  become: true
+  roles:
+    - nginx
+
+- name: Apache host config
+  hosts: apache
+  become: true
+  roles:
+    - apache
+

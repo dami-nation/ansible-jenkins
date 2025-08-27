@@ -1,0 +1,26 @@
+---
+- name: Install nginx (Debian/Ubuntu)
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install nginx (RHEL-like)
+  yum:
+    name: nginx
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure nginx running
+  service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Simple index
+  copy:
+    dest: /var/www/html/index.nginx-deployed.html
+    content: "OK from nginx\n"
+  notify: Restart nginx
+

@@ -1,0 +1,18 @@
+---
+- name: Install apache2
+  apt:
+    name: apache2
+    state: present
+    update_cache: true
+
+- name: Ensure apache2 running
+  service:
+    name: apache2
+    state: started
+    enabled: true
+
+- name: Simple index
+  copy:
+    dest: /var/www/html/index.apache-deployed.html
+    content: "OK from apache\n"
+
