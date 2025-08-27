@@ -1,6 +1,6 @@
 pipeline {
   agent any
-  options { ansiColor('xterm'); timestamps() }
+  options { timestamps() }
 
   parameters {
     choice(name: 'ENV', choices: ['dev'], description: 'Environment')
