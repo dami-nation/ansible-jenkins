@@ -1,5 +1,5 @@
 db_user: dami
-db_pass: January12#
+db_pass: 
 db_name: realcloud
 http_host: "{{ ansible_host | default(inventory_hostname) }}"
 http_port: 80
